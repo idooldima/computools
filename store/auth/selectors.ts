@@ -1,7 +1,7 @@
-import { User } from "firebase/auth";
 import { ReduxStoreType } from "../types";
+import { UserType } from "./types";
 
-export const currentUserSelector = (state: ReduxStoreType): User | null =>
+export const currentUserSelector = (state: ReduxStoreType): UserType | null =>
   state.auth.currentUser;
 
 export const isAuthUserLoadingSelector = (state: ReduxStoreType): boolean =>

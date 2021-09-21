@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { signInSuccess } from "./store/auth/actions";
 import store from "./store/store";
 import { currentUserSelector } from "./store/auth/selectors";
+import { getFakeUser } from "./store/auth/sagas";
 
 initializeApp(firebaseConfig);
 
@@ -24,12 +25,17 @@ function RenderApp() {
   const colorScheme = useColorScheme();
 
   useEffect(() => {
-    onAuthStateChanged(getAuth(), (user) => {
-      setIsFirebaseLoaded(true);
+    onAuthStateChanged(getAuth(), async (user) => {
       if (user && !currentUser) {
-        // dispatch(signInSuccess(user));
-        getAuth().signOut();
+        const fakeUserData = await getFakeUser();
+
+        dispatch(signInSuccess({
+          ...user,
+          ...fakeUserData,
+        }));
       }
+
+      setIsFirebaseLoaded(true);
     });
   }, []);
 

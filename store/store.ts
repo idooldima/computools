@@ -15,7 +15,6 @@ const createStoreWithMiddleware = composeEnhancers(
 
 // Create a store
 const store = createStoreWithMiddleware(rootReducer);
-console.log(store);
 
 sagaMiddleware.run(rootSaga);
 
